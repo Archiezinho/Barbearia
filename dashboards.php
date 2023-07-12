@@ -1,8 +1,8 @@
 <?php
-$serve_file = $_SERVER['DOCUMENT_ROOT'] . "/barbearia/";
-session_save_path($serve_file . 'cache/temp');
+$server_file = $_SERVER['DOCUMENT_ROOT'] . "/barbearia_novo/";
+session_save_path($server_file . 'cache/temp');
 session_start();
-include_once($serve_file . '/php/conexao.php');
+include_once($server_file . '/php/conexao.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

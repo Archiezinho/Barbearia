@@ -1,8 +1,8 @@
 <?php
-$serve_file = $_SERVER['DOCUMENT_ROOT'] . "/barbearia/";
-session_save_path($serve_file . 'cache/temp');
+$server_file = $_SERVER['DOCUMENT_ROOT'] . "/barbearia_novo/";
+session_save_path($server_file . 'cache/temp');
 session_start();
-include_once($serve_file . 'php/conexao.php');
+include_once($server_file . 'php/conexao.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,22 +115,22 @@ button:hover {
                                     <tr>
                                         <?php
                                         $result = $conn->query("select * from barbeiro");
-                                        echo '<form action="php/editarBarbeiroCode.php" method="POST">';
                                         while ($row = $result->fetch_object()) {
                                             echo '
+                                            <form action="php/editarBarbeiroCode.php" method="POST">
                                             <tr>
                                             <th><input value="'.$row->nome.'" name="nome"></th>
                                             <th><input value="'.$row->email.'" name="email"></th>
-                                            <th><input value="'.$row->telefone.'" name="celular"></th>
+                                            <th><input value="'.$row->telefone.'" name="telefone"></th>
                                             <th><input value="'.$row->cpf.'" name="cpf"></th>
                                             <th><input value="'.$row->aniversario.'" name="aniversario"></th>
                                             <th><input value="'.$row->datainicio.'" name="datainicio"></th>
                                             <th><button class="submit" name="id" value="'.$row->id_barbeiro.'" type="submit">Atualizar</button></th>
                                             <input type="hidden" name="idPegar" value="'.$row->id_barbeiro.'"
                                             </tr>
+                                            </form>
                                         ';
                                         }
-                                        echo '</form>';
                                         ?>
                                     </tr>
                                 </tbody>

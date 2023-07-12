@@ -1,8 +1,8 @@
 <?php
-$serve_file = $_SERVER['DOCUMENT_ROOT'] . "/barbearia/";
-session_save_path($serve_file . 'cache/temp');
+$server_file = $_SERVER['DOCUMENT_ROOT'] . "/barbearia_novo/";
+session_save_path($server_file . 'cache/temp');
 session_start();
-include_once($serve_file . '/php/conexao.php');
+include_once($server_file . '/php/conexao.php');
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -114,18 +114,21 @@ button:hover {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        
-                                            <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th><form action="" method="POST"><button class="submit" name="id" value="" type="submit">Excluir</button></form></th>
-                                            <th><form action="" method="POST"><button class="submit" name="id" value="" type="submit">Editar</button></form></th>
-                                          </tr>
-                                     
+                                    <?php
+                                    $result = $conn->query('SELECT nome,email,telefone,cpf,aniversario,datainicio,id_barbeiro from barbeiro');
+                                    while($row = $result->fetch_object()){
+                                    echo '<tr>
+                                        <th>'. $row->nome .'</th>
+                                        <th>'. $row->email .'</th>
+                                        <th>'. $row->telefone .'</th>
+                                        <th>'. $row->cpf .'</th>
+                                        <th>'. $row->aniversario .'</th>
+                                        <th>'. $row->datainicio .'</th>
+                                        <th><form action="php/excluirBarbeiro.php" method="POST"><button class="submit" name="idPegar" value="'. $row->id_barbeiro .'" type="submit">Excluir</button></form></th>
+                                        <th><form action="editarBarbeiro.php" method="POST"><button class="submit" name="id" value="'. $row->id_barbeiro .'" type="submit">Editar</button></form></th>
+                                        </tr>';
+                                    }
+                                    ?>                                    
                                     </tr>
                                 </tbody>
                             </table>
@@ -153,18 +156,21 @@ button:hover {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                      
-                                <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th><form action="" method="POST"><button class="submit" name="id" value="" type="submit">Excluir</button></form></th>
-                                            <th><form action="" method="POST"><button class="submit" name="id" value="" type="submit">Editar</button></form></th>
-                                  </tr>
-                         
+                                    <?php
+                                    $result = $conn->query('SELECT nome_adm,email,telefone,cpf,aniversario,datainicio,id_empresa from empresa');
+                                    while($row = $result->fetch_object()){
+                                    echo '<tr>
+                                        <th>'. $row->nome_adm .'</th>
+                                        <th>'. $row->email .'</th>
+                                        <th>'. $row->telefone .'</th>
+                                        <th>'. $row->cpf .'</th>
+                                        <th>'. $row->aniversario .'</th>
+                                        <th>'. $row->datainicio .'</th>
+                                        <th><form action="php/excluirAdm.php" method="POST"><button class="submit" name="idPegar" value="'. $row->id_empresa .'" type="submit">Excluir</button></form></th>
+                                        <th><form action="editarAdm.php" method="POST"><button class="submit" name="id" value="'. $row->id_empresa .'" type="submit">Editar</button></form></th>
+                                        </tr>';
+                                    }
+                                    ?> 
                                     </tr>
                                 </tbody>
                             </table>

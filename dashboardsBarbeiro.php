@@ -87,30 +87,24 @@ button:hover {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                     
-                                        
-                                                <form action="php/finalizarCorte.php" method="POST">
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
-                                                </form>
-                                       
-                                                <form action="php/finalizarCorte.php" method="POST">
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
-                                                </form>
-                                      
+                                        <?php
+                                        $parametro = filter_input(INPUT_GET, "parametro");
+                                        $result = $conn->query("SELECT * from agenda as A INNER JOIN barbeiro as B on A.barbeiro= B.id_barbeiro where A.nome_cliente like '%$parametro%' or B.nome like '%$parametro%'");
+                                        while ($row = $result->fetch_object()){
+                                            echo '
+                                            <form action="php/finalizarCorte.php" method="POST">
+                                            <tr>
+                                                <th>'. $row->id_agenda .'</th>
+                                                <th>'. $row->nome_cliente .'</th>
+                                                <th>'. $row->datacorte .'</th>
+                                                <th>'. $row->hora .'</th>
+                                                <th>'. $row->telefone .'</th>
+                                                <th>'. $row->nome .'</th>
+                                            </tr>
+                                            </form>
+                                            ';
+                                        }
+                                        ?>
                                     </tr>
                                 </tbody>
                             </table>

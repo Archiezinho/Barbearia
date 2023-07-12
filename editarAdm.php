@@ -113,19 +113,25 @@ button:hover {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        
+                                    <?php
+                                        $result = $conn->query("select * from empresa");
+                                        while ($row = $result->fetch_object()) {
+                                            echo '
+                                            <form action="php/editarAdm.php" method="POST">
                                             <tr>
-                                            <th><input value="" name="nome"></th>
-                                            <th><input value="" name="email"></th>
-                                            <th><input value="" name="celular"></th>
-                                            <th><input value="" name="cpf"></th>
-                                            <th><input value="" name="aniversario"></th>
-                                            <th><input value="" name="datainicio"></th>
-                                            <th><button class="submit" name="id" value="" type="submit">Atualizar</button></th>
-                                            <input type="hidden" name="idPegar" value=""
+                                            <th><input value="'.$row->nome_adm.'" name="nome"></th>
+                                            <th><input value="'.$row->email.'" name="email"></th>
+                                            <th><input value="'.$row->telefone.'" name="telefone"></th>
+                                            <th><input value="'.$row->cpf.'" name="cpf"></th>
+                                            <th><input value="'.$row->aniversario.'" name="aniversario"></th>
+                                            <th><input value="'.$row->datainicio.'" name="datainicio"></th>
+                                            <th><button class="submit" name="id" value="'.$row->id_empresa.'" type="submit">Atualizar</button></th>
+                                            <input type="hidden" name="idPegar" value="'.$row->id_empresa.'"
                                             </tr>
-                                         </form>
-                                    
+                                            </form>
+                                        ';
+                                        }
+                                        ?>
                                     </tr>
                                 </tbody>
                             </table>

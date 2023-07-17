@@ -1,6 +1,9 @@
 <?php 
 
-include 'conexao.php';
+$serve_file = $_SERVER['DOCUMENT_ROOT']."/barbearia_novo/";
+session_save_path($serve_file.'cache/temp');
+session_start();
+include_once('conexao.php');
 
 $nome = $_POST['nome'];
 $senha = $_POST['senha'];
@@ -9,6 +12,8 @@ $cpf = $_POST['cpf'];
 $telefone = $_POST['telefone'];
 $aniversario = $_POST['aniversario'];
 $datainicio = $_POST['data'];
+
+$senha = hash('sha256', $senha);
 
 $sql = ("INSERT into empresa(nome_adm,senha,email,
 cpf,telefone,aniversario,datainicio) 

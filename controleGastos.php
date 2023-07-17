@@ -1,3 +1,9 @@
+<?php
+$server_file = $_SERVER['DOCUMENT_ROOT'] . "/barbearia_novo/";
+session_save_path($server_file . 'cache/temp');
+session_start();
+include_once($server_file . '/php/conexao.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +16,7 @@
   <meta name="author" content="">
   <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
-  <title>Barbearia</title>
+  <title>BarbeariaOn</title>
   <!--stylesheet-->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -20,8 +26,6 @@
     <link href="_css/servico.css" rel="stylesheet" type="text/css" />
 
   <!--scripts-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   <script type="text/javascript" src="scripts/all-plugins.js"></script>
   <script type="text/javascript" src="scripts/plugins-activate.js"></script>
@@ -73,6 +77,17 @@ div.auth input.field{
     border-radius: 3px;
 }
 
+div.auth select.field{
+    display: block;
+    margin: 10px auto;
+    width: 100%;
+    max-width: 400px;
+    padding: 5px 10px;
+    padding-left: 30px;
+    border: 1px solid #CCC;
+    border-radius: 3px;
+}
+
 div.auth input[type="text"]{
     background: url(images/user.png) no-repeat scroll 7px 7px;
     background-size: 16px;
@@ -88,7 +103,7 @@ div.auth input[type="password"]{
     background-size: 16px;
 }
 div.auth input[type="number"]{
-    background: url(images/celular.png) no-repeat scroll 7px 7px;
+    background: url(images/gastos.png) no-repeat scroll 7px 7px;
     background-size: 16px;
 }
 div.auth input[type="date"]{
@@ -145,7 +160,7 @@ div.register{
 <div class="sidebar">
         <div class="sidebar-header">
             <h3 class="brand">
-                <span>BarberShop</span>
+                <span>Federal 61</span>
             </h3>
 
 
@@ -201,47 +216,23 @@ div.register{
         <div class="bg"></div>
 
         <div class="auth login">
-            <p class="title">Cadastrar Barbeiro</p>
-            <form action="php/cadBarbeiro.php" method="POST" id="login">
-                <input type="text" name="nome" class="field" required="required" placeholder="Nome" />
-                <input type="email" name="email" class="field" required="required" placeholder="Email" />
-                <input type="text" name="cpf" class="cpf field" maxlength="11" required="required" placeholder="Cpf" />
-                <input type="text" class="telefone form-control field" name="telefone" placeholder="(00) 00000-0000" />
-                <input type="date" id="presente" name="aniversario" class="field" required="required" placeholder="Data de Nascimento" />
-                <input type="date" name="data" class="field" required="required" placeholder="Data de Inicio" />
-                <input type="password" name="senha" class="field" required minlength="8" maxlength="12" placeholder="Senha" />
+            <p class="title">Registre um produto de cada vez</p>
+            <form action="php/controleGastosCode.php" method="POST" id="login">
+                <input type="text" name="nomeC" class="field" required="required" placeholder="Seu nome" />
+                <select name="produto" class="form-control field" id="exampleFormControlSelect1">
+                <option selected>Produtos</option>
+                    <option value="Gola higiênica">Gola higiênica</option>
+                    <option value="Papel higiênico">Papel higiênico</option>
+                    <option value="lâmina gillette">lâmina gillette</option>
+                </select>
+                <input type="number" class="field" name="valorCompra" min="0" value="0" required="required" step="any" placeholder="valor da Compra">
+                
                 <button class="submit" value="enviar">Cadastrar</button>
             </form>
-            <p class="toogle" onclick="$('.register').fadeIn()">cadastrar administrador</p>
-        </div>
-
-        <div class="auth register">
-            <p class="title">Cadastrar Adm</p>
-            <form method="POST" action="php/cadFunc.php" id="register">
-                <input type="text" name="nome" class="field" required="required" placeholder="Nome" />
-                <input type="email" name="email" class="field" required="required" placeholder="Email" />
-                <input type="text" name="cpf" class="cpf field" required="required" placeholder="Cpf" />
-                <input type="text" class="telefone field" name="telefone" placeholder="(00) 00000-0000" />
-                <input type="date" id="presente" name="aniversario" class="field" required="required" placeholder="Data de Nascimento" />
-                <input type="date" name="data" class="field" required="required" placeholder="Data de Inicio" />
-                <input type="password" name="senha" class="field" required minlength="8" maxlength="12" placeholder="Senha" />
-                <button class="submit" value="enviar">Cadastrar</button>
-            </form>
-            <p class="toogle" onclick="$('.register').fadeOut()">Voltar</p>
         </div>
 
     </section>
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
-<script>
-$(document).ready(function(){
-     $('.telefone').mask("(99) 99999-9999");
-     $('.cpf').mask("999.999.999-99");
-});
-
-</script>
 </body>
 
 </html>

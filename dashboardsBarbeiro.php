@@ -14,7 +14,8 @@
     
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link href="_css/servico.css" rel="stylesheet" type="text/css" />v
+    <link href="_css/servico.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <style>
     button {
@@ -77,12 +78,12 @@ button:hover {
                             <table>
                                 <thead style="text-align: center;">
                                     <tr>
-                                        <th>id</th>
                                         <th>Nome</th>
                                         <th>data</th>
                                         <th>hora</th>
                                         <th>telefone</th>
                                         <th>barbeiro</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,14 +93,15 @@ button:hover {
                                         $result = $conn->query("SELECT * from agenda as A INNER JOIN barbeiro as B on A.barbeiro= B.id_barbeiro where A.nome_cliente like '%$parametro%' or B.nome like '%$parametro%'");
                                         while ($row = $result->fetch_object()){
                                             echo '
-                                            <form action="php/finalizarCorte.php" method="POST">
+                                            <form action="finalizarCorte.php" method="POST">
                                             <tr>
-                                                <th>'. $row->id_agenda .'</th>
                                                 <th>'. $row->nome_cliente .'</th>
                                                 <th>'. $row->datacorte .'</th>
                                                 <th>'. $row->hora .'</th>
                                                 <th>'. $row->telefone .'</th>
                                                 <th>'. $row->nome .'</th>
+                                                <th><button class="submit" name="id" type="submit">finalizar Corte</button></th>
+                                                <input type="hidden" name="idPegar" value="'. $row->id_agenda .'">
                                             </tr>
                                             </form>
                                             ';

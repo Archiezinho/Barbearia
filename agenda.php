@@ -1,16 +1,16 @@
 <?php
-$serve_file = $_SERVER['DOCUMENT_ROOT'] . "/barbearia_novo/";
-session_save_path($serve_file . 'cache/temp');
-session_start();
-include_once($serve_file . '/php/conexao.php');
+    $server_file = $_SERVER['DOCUMENT_ROOT']."/barbearia_novo/";
+    session_save_path($server_file.'cache/temp');
+    session_start();
+    include_once($server_file.'/php/conexao.php');
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-
+    
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link href="_css/servico.css" rel="stylesheet" type="text/css" />
@@ -33,14 +33,19 @@ button:hover {
     color: #FFF;
     cursor: pointer;
 }
+.finalizar {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-column-gap: 1.5rem;
+}
 </style>
 <body>
-
+    
 <input type="checkbox" id="sidebar-toggle">
 <div class="sidebar">
         <div class="sidebar-header">
             <h3 class="brand">
-                <span>BarberShop</span>
+                <span>Federal 61</span>
             </h3>
 
 
@@ -91,51 +96,60 @@ button:hover {
             </ul>
         </div>
     </div>
-
-    <div class="main-content full-container">
-        <main>
+    
+    <div class="main-content">
+        <main>   
             <section class="recent">
-                <div class="barbeiros">
+                <div class="activity-grid finalizar">
                     <div class="activity-card">
-                        <h3>Barbeiros</h3>
-
+                        <h3>Finalizar Corte</h3>
+                        
                         <div class="table-responsive">
                             <table>
                                 <thead style="text-align: center;">
-                                <tr>
+                                    <tr>
                                         <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>Número</th>
-                                        <th>Cpf</th>
-                                        <th>Data de Nascimento</th>
-                                        <th>Data de Inicio</th>
-                                        <th>Atualizar</th>
+                                        <th>data</th>
+                                        <th>hora</th>
+                                        <th>telefone</th>
+                                        <th>barbeiro</th>
+                                        <th>Valor do corte</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                    <?php
-                                        $result = $conn->query("select * from empresa");
-                                        while ($row = $result->fetch_object()) {
+                                <tr>
+                                <?php
+                                        $result = $conn->query("SELECT * from agenda as A INNER JOIN barbeiro as B on A.barbeiro= B.id_barbeiro ");
+                                        while ($row = $result->fetch_object()){
                                             echo '
-                                            <form action="php/editarAdm.php" method="POST">
+                                            <form action="php/cortesFinalizados.php" method="POST">
                                             <tr>
-                                            <th><input value="'.$row->nome_adm.'" name="nome"></th>
-                                            <th><input value="'.$row->email.'" name="email"></th>
-                                            <th><input value="'.$row->telefone.'" name="telefone"></th>
-                                            <th><input value="'.$row->cpf.'" name="cpf"></th>
-                                            <th><input value="'.$row->aniversario.'" name="aniversario"></th>
-                                            <th><input value="'.$row->datainicio.'" name="datainicio"></th>
-                                            <th><button class="submit" name="id" value="'.$row->id_empresa.'" type="submit">Atualizar</button></th>
-                                            <input type="hidden" name="idPegar" value="'.$row->id_empresa.'"
+                                            <th><input value="'. $row->nome_cliente .'" name="nome"></th>
+                                            <th><input value="'. $row->datacorte .'" name="data"></th>
+                                            <th><input value="'. $row->hora .'" name="hora"></th>
+                                            <th><input value="'. $row->telefone .'" name="telefone"></th>
+                                            <th><input value="'. $row->nome .'" name="barbeiro"></th>
+                                            <th><input type="number" name="valorCorte" style="width:80px" value="'. $row->valorCorte .'"></th>
+                                            <th><button class="submit" name="id" type="submit">finalizar Corte</button></th>
+                                            <input type="hidden" name="idPegar" value="'. $row->id_agenda .'">
+                                            <input type="hidden" name="idBarbeiro" value="'. $row->id_barbeiro .'">
                                             </tr>
                                             </form>
-                                        ';
+                                            ';
                                         }
                                         ?>
-                                    </tr>
+                                </tr>   
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+            </section>
+            
+        </main>
+        
+    </div>
+    
+</body>
+</html>

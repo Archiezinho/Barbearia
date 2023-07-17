@@ -1,6 +1,9 @@
-<?php
+<?php 
 
-include 'conexao.php';
+$serve_file = $_SERVER['DOCUMENT_ROOT']."/barbearia_novo/";
+session_save_path($serve_file.'cache/temp');
+session_start();
+include_once('conexao.php');
 
 $idPegar = $_POST['idPegar'];
 

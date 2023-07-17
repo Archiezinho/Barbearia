@@ -1,3 +1,7 @@
+<?php
+$server_file = $_SERVER['DOCUMENT_ROOT'] . "/barbearia_novo/";
+include_once($server_file . '/php/conexao.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +22,7 @@
   <!--scripts-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-  <script type="text/javascript" src="scripts/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   <script type="text/javascript" src="scripts/all-plugins.js"></script>
   <script type="text/javascript" src="scripts/plugins-activate.js"></script>
 </head>
@@ -100,10 +104,14 @@ $(document).ready(function(){
         <h2>Cortes recentes</h2>
       </div>
       <div class="portfolio-wrapper clearfix">
-        <a class="each-portfolio" data-fancybox="gallery" href="images/corteum.jpeg">
+      <?php
+      $result = $conn->query("SELECT codigo from imgCorte");
+      while ($row = $result->fetch_object()){
+          echo '
+          <a class="each-portfolio" data-fancybox="gallery" href="images/media/'. $row->codigo .'.png">
           <div class="content hover-cont-wrap">
             <div class="content-overlay"></div>
-            <img class="content-image" src="images/corteum.jpeg">
+            <img class="content-image" src="images/media/'. $row->codigo .'.png">
             <div class="content-details fadeIn-bottom">
               <h5 class="p-title">Titulo</h5>
               <p class="p-desc">Desc da foto</p>
@@ -111,61 +119,9 @@ $(document).ready(function(){
             </div>
           </div>
         </a>
-        <a class="each-portfolio" data-fancybox="gallery" href="images/corteum.jpeg">
-          <div class="content hover-cont-wrap">
-            <div class="content-overlay"></div>
-            <img class="content-image" src="images/corteum.jpeg">
-            <div class="content-details fadeIn-bottom">
-              <h5 class="p-title">Titulo</h5>
-              <p class="p-desc">Desc da foto</p>
-              <span class="zoom"><i class="fa fa-search-plus"></i></span>
-            </div>
-          </div>
-        </a>
-        <a class="each-portfolio" data-fancybox="gallery" href="images/corteum.jpeg">
-          <div class="content hover-cont-wrap">
-            <div class="content-overlay"></div>
-            <img class="content-image" src="images/corteum.jpeg">
-            <div class="content-details fadeIn-bottom">
-              <h5 class="p-title">Titulo</h5>
-              <p class="p-desc">Desc da foto</p>
-              <span class="zoom"><i class="fa fa-search-plus"></i></span>
-            </div>
-          </div>
-        </a>
-        <a class="each-portfolio" data-fancybox="gallery" href="images/corteum.jpeg">
-          <div class="content hover-cont-wrap">
-            <div class="content-overlay"></div>
-            <img class="content-image" src="images/corteum.jpeg">
-            <div class="content-details fadeIn-bottom">
-              <h5 class="p-title">Titulo</h5>
-              <p class="p-desc">Desc da foto</p>
-              <span class="zoom"><i class="fa fa-search-plus"></i></span>
-            </div>
-          </div>
-        </a>
-        <a class="each-portfolio" data-fancybox="gallery" href="images/corteum.jpeg">
-          <div class="content hover-cont-wrap">
-            <div class="content-overlay"></div>
-            <img class="content-image" src="images/corteum.jpeg">
-            <div class="content-details fadeIn-bottom">
-              <h5 class="p-title">Titulo</h5>
-              <p class="p-desc">Desc da foto</p>
-              <span class="zoom"><i class="fa fa-search-plus"></i></span>
-            </div>
-          </div>
-        </a>
-        <a class="each-portfolio" data-fancybox="gallery" href="images/corteum.jpeg">
-          <div class="content hover-cont-wrap">
-            <div class="content-overlay"></div>
-            <img class="content-image" src="images/corteum.jpeg">
-            <div class="content-details fadeIn-bottom">
-              <h5 class="p-title">Titulo</h5>
-              <p class="p-desc">Desc da foto</p>
-              <span class="zoom"><i class="fa fa-search-plus"></i></span>
-            </div>
-          </div>
-        </a>
+          ';
+      }
+      ?>
       </div>
     </div>
   </section>
@@ -294,25 +250,6 @@ $(document).ready(function(){
               <input id="datetime" name="data" required type="date" class="form-control"/>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <label for="inputPassword4" class="form-label">Escolha um horario</label>
-              <div class="row" required>
-              <p ><input style="margin:0 3px;" type="radio" name="hora" value="10:00" />10:00</p> 
-              <p><input style="margin:0 3px;"  type="radio" name="hora" value="11:00" />11:00</p> 
-              <p><input style="margin:0 3px;"  type="radio" name="hora" value="12:00" />12:00</p> 
-              <p><input style="margin:0 3px;"  type="radio" name="hora" value="13:00" />13:00</p> 
-              <p><input style="margin:0 3px;"  type="radio" name="hora" value="14:00" />14:00</p> 
-              <p><input style="margin:0 3px;"  type="radio" name="hora" value="15:00" />15:00</p> 
-              <p><input style="margin:0 3px;"  type="radio" name="hora" value="16:00" />16:00</p> 
-              <p><input style="margin:0 3px;"  type="radio" name="hora" value="17:00" />17:00</p> 
-              <p><input style="margin:0 3px;"  type="radio" name="hora" value="18:00" />18:00</p> 
-              <p><input style="margin:0 3px;"  type="radio" name="hora" value="19:00" />19:00</p> 
-              </div>
-            </div>
-          </div>
-
           <div class="row">
             <div class="col-md-12">
               <label for="inputPassword4" class="form-label">Escolha um de nossos barbeiros</label>
@@ -322,11 +259,30 @@ $(document).ready(function(){
               while($row = $result->fetch_object()){
                 echo '
                 <tr>
-                <p><input style="margin:0 3px;" type="radio" name="barbeiro" value="'.$row->id_barbeiro.'"/>'. $row->nome .'</input>
+                <p><input style="margin:0 3px;" type="radio" id="radio" name="barbeiro" value="'.$row->id_barbeiro.'"/>'. $row->nome .'</input>
                 </tr>
                 ';
               }
               ?>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <label for="inputPassword4" class="form-label">Escolha um horario</label>
+              <div class="row" required> 
+              <?php 
+              include 'php/conexao.php';
+              $result = $conn->query("select * from horario where id_barbeiro=".'2');
+              while($row = $result->fetch_object()){
+                echo '
+                <tr>
+                <p ><input style="margin:0 3px;" type="radio" name="hora" value="'. $row->horario .'" />'. $row->horario .'</p>
+                </tr>
+                ';
+              }
+              ?> 
+              </div>
             </div>
           </div>
 

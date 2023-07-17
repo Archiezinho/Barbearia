@@ -1,6 +1,6 @@
 <?php 
 
-include 'conexao.php';
+include_once('conexao.php');
 
 $nome = $_POST['nome'];
 $data = $_POST['data'];

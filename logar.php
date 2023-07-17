@@ -16,10 +16,17 @@
   <link href="styles/custom-responsive-styles.css" rel="stylesheet" type="text/css">
 
   <!--scripts-->
-  <script type="text/javascript" src="scripts/jquery-3.2.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   <script type="text/javascript" src="scripts/all-plugins.js"></script>
   <script type="text/javascript" src="scripts/plugins-activate.js"></script>
 </head>
+<script type="text/javascript">
+$(document).ready(function(){
+     $('.telefone').mask("(99) 99999-9999");
+});
+</script>
 <style>
   
   div.bg {

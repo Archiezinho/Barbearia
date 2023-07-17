@@ -14,7 +14,7 @@ include_once($server_file . '/php/conexao.php');
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link href="_css/servico.css" rel="stylesheet" type="text/css" />
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -87,9 +87,18 @@ include_once($server_file . '/php/conexao.php');
                         <span class="ti-briefcase"></span>
                         <div>
                             <h5>Faturamento</h5>
-                         
-                           <span style='color:orange;font-weight: bold'></span>
-                           
+                            <?php 
+                            $sql = "SELECT valorCorte from cortes";
+                            $result = mysqli_query($conn, $sql);
+                            $valor2 = 0;
+                            $valorCorte = 0;
+                            while ($row = mysqli_fetch_assoc($result)){
+                                $valorCorte = $row['valorCorte'];
+                                $valor2 += $valorCorte;
+                            }
+                            $valor2 = $valor2 == null ? '0.00' : $valor2;
+                            echo '<span style="color:orange;font-weight: bold">R$: '.$valor2.'</span>';
+                            ?>       
                         </div>
                     </div>
                     <div class="card-footer">
@@ -102,7 +111,17 @@ include_once($server_file . '/php/conexao.php');
                         <span class="ti-reload"></span>
                         <div>
                             <h5>Gastos</h5>
-                           <span style='color:red;font-weight: bold'></span>
+                            <?php 
+                            $sql = "SELECT valorProduto from cortes";
+                            $result = mysqli_query($conn, $sql);
+                            $valor2 = 0;
+                            while ($row = mysqli_fetch_assoc($result)){
+                                $valorCorte = $row['valorProduto'];
+                                $valor2 += $valorCorte;
+                            }
+                            $valor2 = $valor2 == null ? '0.00' : $valor2;
+                            echo "<span style='color:orange;font-weight: bold'>R$: $valor2 </span>";
+                            ?>  
                            
                         </div>
                     </div>
@@ -116,7 +135,17 @@ include_once($server_file . '/php/conexao.php');
                         <span class="ti-check-box"></span>
                         <div>
                             <h5>Lucro</h5>
-                           
+                            <?php 
+                            $sql = "SELECT valorProduto,valorCorte from cortes";
+                            $result = mysqli_query($conn, $sql);
+                            $valor2 = 0;
+                            while ($row = mysqli_fetch_assoc($result)){
+                                $valorCorte = $row['valorCorte'] - $row['valorProduto'];
+                                $valor2 += $valorCorte;
+                            }
+                            $valor2 = $valor2 == null ? '0.00' : $valor2;
+                            echo "<span style='color:orange;font-weight: bold'>R$: $valor2</span>";
+                            ?>  
                         </div>
                     </div>
                     <div class="card-footer">
@@ -140,15 +169,18 @@ include_once($server_file . '/php/conexao.php');
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        
+                                <?php 
+                            $sql = "SELECT B.nome, sum(C.valorCorte) as valorCorte from cortes as C INNER JOIN barbeiro as B on C.barbeiro= B.id_barbeiro  group by barbeiro ;";
+                            $result = mysqli_query($conn, $sql);             
+                            while ($row = $result->fetch_object()){
+                                echo "
                                 <tr>
-                                    <th></th>
-                                    <th></th>
-                                  </tr>
-                          
-                                    
-                                    </tr>
+                                <th>$row->nome</th>
+                                <th>$row->valorCorte</th>
+                                </tr>
+                                ";
+                            }
+                            ?>  
                                 </tbody>
                             </table>
                         </div>
@@ -163,7 +195,13 @@ include_once($server_file . '/php/conexao.php');
                                    
                                    <h5><span style='color:green;font-weight: bold'></span></h5>
                               
-                                    <small>Cortes finalizados</small>
+                                    <small>Cortes finalizados</small><br>
+                                    <?php 
+                            $sql = "SELECT COUNT(*) as total from cortes";
+                            $result = mysqli_query($conn, $sql);
+                            $data = mysqli_fetch_assoc($result);
+                            echo "<span style='color:orange;font-weight: bold'>".$data['total']."</span>";
+                            ?>  
                                 </div>
                             </div>
                             <div class="summary-single">
@@ -172,7 +210,13 @@ include_once($server_file . '/php/conexao.php');
                                     
                                     <h5><span style='color:red;font-weight: bold'></span></h5>
                                     
-                                    <small>Número de Agenamentos</small>
+                                    <small>Número de Agendamentos</small><br>
+                                    <?php 
+                            $sql = "SELECT COUNT(*) as total from agenda";
+                            $result = mysqli_query($conn, $sql);
+                            $data = mysqli_fetch_assoc($result);
+                            echo "<span style='color:orange;font-weight: bold'>".$data['total']."</span>";
+                            ?>  
                                 </div>
                             </div>
                             

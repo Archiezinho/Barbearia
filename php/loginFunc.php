@@ -8,6 +8,8 @@ include_once('conexao.php');
 $nome = $_POST['nome'];
 $senha = $_POST['senha'];
 
+$senha = hash('sha256', $senha);
+
 $sql = "SELECT * from barbeiro where nome = '$nome' and senha = '$senha'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_num_rows($result);

@@ -66,8 +66,8 @@ button:hover {
         <main>   
         <section class="recent">
                 <div>
-                <form style="display:flex; justify-content: center;" action="">
-                    <input style="border-radius: 15px; padding:10px;" type="text" name="parametro" placeholder="Barbeiro">
+                <form style="display:flex; justify-content: center;" id="form1">
+                    <input style="border-radius: 15px; padding:10px;" type="text" id="parametro" name="parametro" placeholder="Barbeiro">
                     <button class="submit" type="submit">Buscar</button>
                 </form>
                 
@@ -86,28 +86,8 @@ button:hover {
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <?php
-                                        $parametro = filter_input(INPUT_GET, "parametro");
-                                        $result = $conn->query("SELECT * from agenda as A INNER JOIN barbeiro as B on A.barbeiro= B.id_barbeiro where A.nome_cliente like '%$parametro%' or B.nome like '%$parametro%'");
-                                        while ($row = $result->fetch_object()){
-                                            echo '
-                                            <form action="finalizarCorte.php" method="POST">
-                                            <tr>
-                                                <th>'. $row->nome_cliente .'</th>
-                                                <th>'. $row->datacorte .'</th>
-                                                <th>'. $row->hora .'</th>
-                                                <th>'. $row->telefone .'</th>
-                                                <th>'. $row->nome .'</th>
-                                                <th><button class="submit" name="id" type="submit">finalizar Corte</button></th>
-                                                <input type="hidden" name="idPegar" value="'. $row->id_agenda .'">
-                                            </tr>
-                                            </form>
-                                            ';
-                                        }
-                                        ?>
-                                    </tr>
+                                <tbody id='content'>
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -119,6 +99,6 @@ button:hover {
         </main>
         
     </div>
-    
+    <script src="scripts/getClientes.js"></script>
 </body>
 </html>
